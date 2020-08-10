@@ -86,7 +86,7 @@
 
 	<build>
 		<plugins>
-			<plugin>
+			<!--plugin>
 				<groupId>io.snyk</groupId>
 				<artifactId>snyk-maven-plugin</artifactId>
 				<version>1.2.7</version>
@@ -112,7 +112,7 @@
 					<organisation>20be9dd9-b33c-4860-96f1-072eecf66b40</organisation>
 					<org></org>
 				</configuration>
-			</plugin>
+			</plugin-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

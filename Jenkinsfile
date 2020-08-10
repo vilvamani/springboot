@@ -31,7 +31,7 @@ node {
             sh 'mvn clean test -U'
         }
 
-        stage("UnitTest") {
+        stage("Maven Build") {
             sh "mvn install"
         }
 
@@ -42,9 +42,9 @@ node {
         }
 
         stage("Snyk Vulnerability Scan") {
-            //snykSecurity(organisation: '20be9dd9-b33c-4860-96f1-072eecf66b40', projectName: 'python-flask', snykInstallation: 'Snyk', snykTokenId: 'snyktoken')
-            sh "mvn snyk:test"
-            sh "mvn snyk:monitor"
+            snykSecurity(organisation: '20be9dd9-b33c-4860-96f1-072eecf66b40', projectName: 'python-flask', snykInstallation: 'Snyk', snykTokenId: 'snyktoken')
+            //sh "mvn snyk:test"
+            //sh "mvn snyk:monitor"
         }
 
         stage("OWASP Dependancy Check"){
