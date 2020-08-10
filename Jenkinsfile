@@ -32,7 +32,7 @@ node {
         }
 
         stage("Maven Build") {
-            sh "mvn install"
+            sh "mvn install -DskipTests"
         }
 
         stage("SonarQube") {

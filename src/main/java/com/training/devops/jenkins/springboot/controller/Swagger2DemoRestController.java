@@ -1,4 +1,4 @@
-package com.training.devops.jenkins.controller;
+package com.training.devops.jenkins.springboot.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.training.devops.jenkins.model.Student;
+import com.training.devops.jenkins.springboot.model.Student;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

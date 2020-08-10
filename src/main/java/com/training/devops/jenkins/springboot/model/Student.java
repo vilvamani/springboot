@@ -1,4 +1,4 @@
-package com.training.devops.jenkins.model;
+package com.training.devops.jenkins.springboot.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
