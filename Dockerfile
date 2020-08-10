@@ -6,7 +6,7 @@ LABEL maintainer "vilvamani007@gmail.com"
 
 EXPOSE 8080
 
-COPY target/springboot*SNAPSHOT.jar app.jar
+COPY target/spring-boot*SNAPSHOT.jar app.jar
 
 #ENV JAVA_OPTS="-javaagent:/appd-java-agent/javaagent.jar"
 #ENTRYPOINT java $JAVA_OPTS -jar /app.jar
