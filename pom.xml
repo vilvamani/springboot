@@ -148,7 +148,7 @@
 				</executions>
 				<configuration>
 					<apiToken>59e81726-0a88-43ee-a3f7-d7bfcc2f7e7b</apiToken>
-					<failOnSeverity>low</failOnSeverity>
+					<failOnSeverity>high</failOnSeverity>
 					<organisation>20be9dd9-b33c-4860-96f1-072eecf66b40</organisation>
 					<org></org>
 				</configuration>
