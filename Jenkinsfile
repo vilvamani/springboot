@@ -2,7 +2,7 @@ node {
     def git_commit = ""
     def author_email = ""
     def customImage = ""
-    def docker_image_name = "vilvamani007/sprintbook"
+    def docker_image_name = "vilvamani007/sprintboot"
 
     def mvnHome = tool 'M3'
     env.PATH = "${mvnHome}/bin:${env.PATH}"
