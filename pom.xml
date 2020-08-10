@@ -23,8 +23,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
 		<java.version>1.8</java.version>
+		<sonar.sources>.</sonar.sources>
+		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
 		<sonar.projectKey>spring-boot</sonar.projectKey>
 		<sonar.organization>vilvamani</sonar.organization>
 	</properties>
