@@ -1,0 +1,82 @@
+node {
+    def git_commit = ""
+    def author_email = ""
+    def customImage = ""
+    def docker_image_name = "vilvamani007/sprintbook"
+
+    def mvnHome = tool 'M3'
+    env.PATH = "${mvnHome}/bin:${env.PATH}"
+
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '10')), disableConcurrentBuilds(), [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false]])
+
+    try {
+        stage("CleanUp WorkSpace") {
+            cleanWs()
+        }
+
+        stage("Git Checkout") {
+            git url: 'https://github.com/vilvamani/springboot.git'
+        }
+
+        stage("Read Author") {
+            git_commit = sh label: 'get last commit',
+                returnStdout: true,
+                script: 'git rev-parse --short HEAD~0'
+            author_email = sh label: 'get last commit',
+                returnStdout: true,
+                script: 'git log -1 --pretty=format:"%ae"'
+        }
+
+        stage("UnitTest") {
+            sh 'mvn clean test -U'
+        }
+
+        stage("UnitTest") {
+            sh "mvn install"
+        }
+
+        stage("SonarQube") {
+            withSonarQubeEnv('SonarQube') {
+                sh "mvn verify sonar:sonar"
+            }
+        }
+
+        stage("Snyk Vulnerability Scan") {
+            //snykSecurity(organisation: '20be9dd9-b33c-4860-96f1-072eecf66b40', projectName: 'python-flask', snykInstallation: 'Snyk', snykTokenId: 'snyktoken')
+            sh "mvn snyk:test"
+            sh "mvn snyk:monitor"
+        }
+
+        stage("OWASP Dependancy Check"){
+            dependencyCheck additionalArguments: '', odcInstallation: 'owasp'
+            dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+        }
+
+        stage("Build Docker Image") {
+            customImage = docker.build(docker_image_name)
+        }
+
+        stage("Docker Push & CleanUp") {
+            // This step should not normally be used in your script. Consult the inline help for details.
+            withDockerRegistry(credentialsId: 'docker_hub', url: 'https://index.docker.io/v1/') {
+                customImage.push("${env.BUILD_NUMBER}")
+                customImage.push("${git_commit}")
+                customImage.push("latest")
+            }
+
+            // Remove dangling Docker images
+            sh "docker image prune --all --force"
+        }
+    } catch (Exception e) {
+        currentBuild.result = 'FAILURE'
+        currentBuild.displayName = "#" + (currentBuild.number + ' - ' + currentBuild.result)
+        println "::: Catching the exception :::"
+        println e
+    } finally {
+        //The finally block always executes. 
+        if (currentBuild.result != 'FAILURE') {
+            currentBuild.result = 'SUCCESS'
+            currentBuild.displayName = "#" + (currentBuild.number + ' - ' + currentBuild.result)
+        }
+    }
+}
