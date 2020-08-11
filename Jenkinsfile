@@ -62,6 +62,7 @@ node {
 
         stage("Regression Test - Postman Collection") {
             docker.image("${docker_image_name}:latest").withRun("-p 8081:8080") {
+                sh 'sleep 120'
                 sh 'newman run springboot.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/myreport.xml"'
 
                 junit 'newman/myreport.xml'
