@@ -56,12 +56,12 @@ node {
             sh "curl -O https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
             sh "jar -xvf newrelic-java.zip"
             sh "cp newrelic/newrelic.jar ./newrelic.jar"
-            sh "ls -l"
+            sh "rm -rf newrelic newrelic-java.zip"
             customImage = docker.build(docker_image_name)
         }
 
         stage("Regression Test - Postman Collection") {
-            docker.image("${docker_image_name}:latest").withRun("-p 8080:8080") {
+            docker.image("${docker_image_name}:latest").withRun("-p 8081:8080") {
                 sh 'newman run springboot.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/myreport.xml"'
 
                 junit 'newman/myreport.xml'
