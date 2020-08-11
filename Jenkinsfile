@@ -60,6 +60,14 @@ node {
             customImage = docker.build(docker_image_name)
         }
 
+        stage("Regression Test - Postman Collection") {
+            docker.image("${docker_image_name}:latest").withRun("-p 8080:8080") {
+                sh 'newman run springboot.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/myreport.xml"'
+
+                junit 'newman/myreport.xml'
+            }
+        }
+
         stage("Docker Push & CleanUp") {
             // This step should not normally be used in your script. Consult the inline help for details.
             withDockerRegistry(credentialsId: 'docker_hub', url: 'https://index.docker.io/v1/') {

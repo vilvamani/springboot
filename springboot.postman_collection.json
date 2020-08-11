@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "16d539c3-5554-4fe7-b080-aa9ced35794a",
+		"name": "springboot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateBook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1adb8ef2-5088-40b2-8387-eebda65a6784",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"2\",\r\n    \"title\": \"The Threat: How the FBI America in the age of Terror and Trump\",\r\n    \"publishDate\": \"2020-08-11T06:32:24.802+00:00\",\r\n    \"author\": \"Andrew\",\r\n    \"type\": \"Hardcover\",\r\n    \"price\": 17.99,\r\n    \"numOfPages\": 288,\r\n    \"publisher\": \"St. Martin Press\",\r\n    \"language\": \"English\",\r\n    \"isbn13\": \"978-1250207579\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "955a8be3-5cff-40cf-9c75-45a5feed7e85",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
