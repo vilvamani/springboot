@@ -53,6 +53,10 @@ node {
         }
 
         stage("Build Docker Image") {
+            sh "curl -O https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
+            sh "jar -xvf newrelic-java.zip"
+            sh "cp newrelic/newrelic.jar ./newrelic.jar"
+            sh "ls -l"
             customImage = docker.build(docker_image_name)
         }
 

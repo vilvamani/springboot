@@ -8,7 +8,5 @@ EXPOSE 8080
 
 COPY target/spring-boot*SNAPSHOT.jar app.jar
 
-#ENV JAVA_OPTS="-javaagent:/appd-java-agent/javaagent.jar"
-#ENTRYPOINT java $JAVA_OPTS -jar /app.jar
-
-ENTRYPOINT java -jar /app.jar
+ENV JAVA_OPTS="-javaagent:newrelic.jar"
+ENTRYPOINT java $JAVA_OPTS -jar /app.jar
