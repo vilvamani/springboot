@@ -34,12 +34,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/books",
+					"raw": "http://localhost:8080/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "8080",
 					"path": [
 						"books"
 					]
@@ -67,12 +67,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/books",
+					"raw": "http://localhost:8080/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "8080",
 					"path": [
 						"books"
 					]
