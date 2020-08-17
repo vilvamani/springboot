@@ -6,7 +6,7 @@ LABEL maintainer "vilvamani007@gmail.com"
 
 EXPOSE 8080
 
-#COPY target/spring-boot*SNAPSHOT.jar app.jar
+COPY target/spring-boot*SNAPSHOT.jar app.jar
 #COPY newrelic.jar newrelic.jar
 #COPY newrelic.yml newrelic.yml
 
