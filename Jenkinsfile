@@ -66,7 +66,8 @@ node {
                 sh 'newman run springboot.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/myreport.xml"'
 
                 junit 'newman/myreport.xml'
-            }*/
+            }
+            */
         }
 
         stage("Docker Push & CleanUp") {
