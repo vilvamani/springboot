@@ -18,5 +18,4 @@ public class BooksServiceApplicationTests {
         String result = bookController.home();
         assertEquals(result, "Hello World!");
     }
-
 }
