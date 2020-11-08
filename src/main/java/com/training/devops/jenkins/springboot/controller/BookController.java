@@ -13,6 +13,11 @@ public class BookController {
     @Autowired
     private BookService bookservice;
 
+    @RequestMapping("/")
+    public String home() {
+        return "Hello World!";
+    }
+
     @GetMapping("/books")
     public List<Book> getAllBooks() {
         return bookservice.getAllBooks();
