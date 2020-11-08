@@ -31,6 +31,15 @@ node {
             sh 'mvn clean test -U'
         }
 
+        stage("Publish Report"){
+            junit(
+                allowEmptyResults: true,
+                testResults: '**/target/surefire-reports/*.xml,' +
+                        '**/target/failsafe-reports/*.xml'
+            )
+            jacoco()
+        }
+
         stage("Maven Build") {
             sh "mvn install -DskipTests"
         }
