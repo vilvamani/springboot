@@ -15,7 +15,7 @@
 
 	<groupId>com.training.devops.jenkins</groupId>
 	<artifactId>spring-boot</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>spring-boot</name>
 	<description>Demo project for Spring Boot</description>
 
