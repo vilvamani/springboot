@@ -13,7 +13,7 @@ public class BookController {
     @Autowired
     private BookService bookservice;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home() {
         return "Hello World!";
     }
