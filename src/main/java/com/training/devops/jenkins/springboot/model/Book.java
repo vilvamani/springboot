@@ -36,43 +36,83 @@ public class Book {
         this.isbn13 = isbn13;
     }
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public Date getPublishDate() {
-        return publishDate;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getAuthor() {
-        return author;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public Date getPublishDate() {
+		return publishDate;
+	}
 
-    public double getPrice() {
-        return price;
-    }
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
+	}
 
-    public int getNumOfPages() {
-        return numOfPages;
-    }
+	public String getAuthor() {
+		return author;
+	}
 
-    public String getPublisher() {
-        return publisher;
-    }
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getIsbn13() {
-        return isbn13;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getNumOfPages() {
+		return numOfPages;
+	}
+
+	public void setNumOfPages(int numOfPages) {
+		this.numOfPages = numOfPages;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getIsbn13() {
+		return isbn13;
+	}
+
+	public void setIsbn13(String isbn13) {
+		this.isbn13 = isbn13;
+	}
 }
