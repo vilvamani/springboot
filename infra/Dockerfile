@@ -14,7 +14,7 @@ EXPOSE 8080
 ARG JAR_FILE=../target/spring-boot*SNAPSHOT.jar
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} app.jar
+ADD ../target/spring-boot-1.0.1-SNAPSHOT.jar app.jar
 #COPY ../target/spring-boot*SNAPSHOT.jar app.jar
 COPY newrelic.jar newrelic.jar
 COPY newrelic.yml newrelic.yml
