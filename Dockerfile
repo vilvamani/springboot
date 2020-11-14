@@ -20,7 +20,7 @@ ADD ${JAR_FILE} app.jar
 #COPY infra/newrelic.yml newrelic.yml
 
 #ENV JAVA_OPTS="-javaagent:newrelic.jar -Xmx256m -Xms128m"
-ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -javaagent:newrelic.jar -Xmx512m -Xms256m"
+ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Xmx512m -Xms256m"
 #ENTRYPOINT java $JAVA_OPTS -jar /app.jar
 
 ENTRYPOINT ["java", $JAVA_OPTS, "-jar", "/app.jar"]
