@@ -13,16 +13,8 @@ spec:
         app: springboot-app
     spec:
       containers:
-        - name: springboot-app
-          image: vilvamani007/sprintboot:latest
-          ports:
-            - containerPort: 8080
-          imagePullPolicy: Always
-        readinessProbe:
-          httpGet:
-            path: /home
-            port: 8080
-          periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 2
-          failureThreshold: 5
+      - name: springboot-app
+        image: vilvamani007/sprintboot:latest
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
