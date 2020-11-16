@@ -56,10 +56,6 @@ node('jenkins-slave') {
 
             dir("infra"){
                 stage("Build Docker Image") {
-                    sh "curl -O https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
-                    sh "jar -xvf newrelic-java.zip"
-                    sh "cp newrelic/newrelic.jar ./newrelic.jar"
-                    sh "rm -rf newrelic newrelic-java.zip"
                     customImage = docker.build(docker_image_name)
                 }
             }
@@ -80,6 +76,17 @@ node('jenkins-slave') {
             stage("Push to artifactory") {
                 configFileProvider([configFile(fileId: '8b36a983-2cd4-4843-956f-f2f5f72efff4', variable: 'MAVEN_SETTINGS')]) {
                     sh "mvn -s $MAVEN_SETTINGS clean deploy"
+                }
+            }
+
+            stage("K8s Deployment") {
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kube', namespace: '', serverUrl: 'https://kubernetes.default:443']]) {
+                    sh 'kubectl get pods'
+                }
+
+                withKubeConfig(credentialsId: 'kube', serverUrl: 'https://kubernetes.default:443') {
+                    sh 'kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-deployment.yaml'
+                    sh 'kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-service.yaml'
                 }
             }
         }
