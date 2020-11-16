@@ -53,12 +53,9 @@ node('jenkins-slave') {
                 }
             }
 
-
-            dir("infra"){
                 stage("Build Docker Image") {
                     customImage = docker.build(docker_image_name)
                 }
-            }
             
             stage("Docker Push & CleanUp") {
                 // This step should not normally be used in your script. Consult the inline help for details.
@@ -92,5 +89,7 @@ node('jenkins-slave') {
         }
     } catch (Exception e) {
         currentBuild.result = "FAILURE"
+        print("============================")
+        print(e)
     }
 }
