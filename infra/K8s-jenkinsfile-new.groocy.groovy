@@ -19,6 +19,7 @@ params = [
     skip_sonar: false,
     skip_artifactory: false,
     skip_docker_push: false,
+    skip_kubernetes_deployment: false,
     dockerRepoName: 'vilvamani007',
     dockerImageName: 'sprintboot',
     kubeDeploymentFile: './infra/k8s-deployment.yaml',
@@ -34,14 +35,7 @@ node('jenkins-slave') {
     jenkinsLibrary.defaultConfigs(params)
     timestamps {
         try {
-            jenkinsLibrary.checkOutSCM(params)
-            jenkinsLibrary.mavenUnitTests(params)
-            jenkinsLibrary.mavenIntegrationTests(params)
-            jenkinsLibrary.mavenPublishTest(params)
-            jenkinsLibrary.mavenBuild(params)
-            jenkinsLibrary.sonarQualityAnalysis(params)
-            dockerImage = jenkinsLibrary.dockerize(params)
-            jenkinsLibrary.pushToRepositories(dockerImage, params)
+            jenkinsLibrary.mavenSpingBootBuild(params)
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
             throw err
