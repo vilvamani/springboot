@@ -29,12 +29,12 @@
         <snapshotRepository>
             <id>maven-snapshots</id>
             <name>maven-snapshots</name>
-            <url>http://10.0.212.76:30003/repository/maven-snapshots/</url>
+            <url>http://sonatype-nexus-service.default:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>maven-releases</id>
             <name>maven-releases</name>
-            <url>http://10.0.212.76:30003/repository/maven-releases/</url>
+            <url>http://sonatype-nexus-service.default:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 
