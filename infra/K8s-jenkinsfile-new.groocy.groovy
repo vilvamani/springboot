@@ -36,6 +36,10 @@ node('jenkins-slave') {
     timestamps {
         try {
             jenkinsLibrary.mavenSpingBootBuild(params)
+
+            stage("DependencyCheck") {
+                sh "dependencyCheck additionalArguments: '', odcInstallation: 'DependencyCheck'"
+            }
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
             throw err
