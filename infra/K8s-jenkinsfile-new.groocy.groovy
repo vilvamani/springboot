@@ -27,8 +27,8 @@ params = [
 ]
 
 node('jenkins-slave') {
-    //def mvnHome = tool 'M3'
-    //env.PATH = "${mvnHome}/bin:${env.PATH}"
+    def mvnHome = tool 'M3'
+    env.PATH = "${mvnHome}/bin:${env.PATH}"
 
     step([$class: 'WsCleanup'])
     jenkinsLibrary = loadJenkinsCommonLibrary()
@@ -36,10 +36,6 @@ node('jenkins-slave') {
     timestamps {
         try {
             jenkinsLibrary.mavenSpingBootBuild(params)
-
-            stage("DependencyCheck") {
-                sh "dependencyCheck additionalArguments: '', odcInstallation: 'DependencyCheck'"
-            }
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
             throw err
