@@ -10,6 +10,10 @@ jenkins_common_repo_url = "https://github.com/vilvamani/jenkins_common_library.g
 jenkins_common_checkout_dir = "jenkins_library"
 jenkins_common_file = "jenkins_common_library.groovy"
 
+colorBlue = '#0000FF'
+colorGreen = '#00FF00'
+colorRed = '#FF0000'
+
 params = [
     branch_checkout_dir: 'service',
     branch: 'master',
@@ -38,7 +42,12 @@ node('jenkins-slave') {
             jenkinsLibrary.mavenSpingBootBuild(params)
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
+
+            sendToSlack(colorRed, "FAILURE", 'sprintboot', 'infra-deployment', params.branch)
+
             throw err
+        } finally {
+            sendToSlack(colorBlue, "SUCCESS", 'sprintboot', 'infra-deployment', params.branch)
         }
     }
 }
