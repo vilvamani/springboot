@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-app
+  name: springboot-ENVIRONMENT-BUILD_NUMBER
 spec:
   replicas: 2
   selector:
@@ -11,10 +11,12 @@ spec:
     metadata:
       labels:
         app: springboot-app
+        version: "BUILD_NUMBER"
     spec:
       containers:
-      - name: springboot-app
-        image: DOCKER_IMAGE
-        ports:
-        - containerPort: 8080
-        imagePullPolicy: Always
+        - name: springboot-ENVIRONMENT-BUILD_NUMBER
+          image: IMAGE
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
