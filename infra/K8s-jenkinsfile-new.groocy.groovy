@@ -9,6 +9,7 @@ jenkins_common_branch = "develop"
 jenkins_common_repo_url = "https://github.com/vilvamani/jenkins_common_library.git"
 jenkins_common_checkout_dir = "jenkins_library"
 jenkins_common_file = "jenkins_common_library.groovy"
+jenkins_slack_channel = "infra-development"
 
 colorBlue = '#0000FF'
 colorGreen = '#00FF00'
@@ -43,11 +44,11 @@ node('jenkins-slave') {
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
 
-            jenkinsLibrary.sendToSlack(colorRed, "FAILURE", 'sprintboot', 'infra-development', params.branch)
+            jenkinsLibrary.sendToSlack(colorRed, "FAILURE", 'sprintboot', jenkins_slack_channel, params.branch)
 
             throw err
         } finally {
-            jenkinsLibrary.sendToSlack(colorBlue, "SUCCESS", 'sprintboot', 'infra-development', params.branch)
+            jenkinsLibrary.sendToSlack(colorBlue, "SUCCESS", 'sprintboot', jenkins_slack_channel, params.branch)
         }
     }
 }
