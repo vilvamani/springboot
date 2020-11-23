@@ -5,6 +5,8 @@ properties([
     buildDiscarder(logRotator(daysToKeepStr: '7', numToKeepStr: '10'))
 ])
 
+current_branch = "${env.BRANCH_NAME}"
+
 jenkins_common_branch = "develop"
 jenkins_common_repo_url = "https://github.com/vilvamani/jenkins_common_library.git"
 jenkins_common_checkout_dir = "jenkins_library"
@@ -13,7 +15,7 @@ jenkins_common_file = "jenkins_common_library.groovy"
 params = [
     branch_checkout_dir: 'service',
     service: 'springboot-microservice',
-    branch: 'master',
+    branch: current_branch,
     repo_url: 'https://github.com/vilvamani/springboot.git',
     dockerRepoName: 'vilvamani007',
     dockerImageName: 'sprintboot',
