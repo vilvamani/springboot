@@ -25,6 +25,7 @@ params = [
     skip_unit_test: false,
     skip_integration_test: true,
     skip_sonar: false,
+    skip_owasp: false,
     skip_artifactory: false,
     skip_docker_push: false,
     skip_kubernetes_deployment: false,
