@@ -43,11 +43,11 @@ node('jenkins-slave') {
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
 
-            sendToSlack(colorRed, "FAILURE", 'sprintboot', 'infra-deployment', params.branch)
+            jenkinsLibrary.sendToSlack(colorRed, "FAILURE", 'sprintboot', 'infra-deployment', params.branch)
 
             throw err
         } finally {
-            sendToSlack(colorBlue, "SUCCESS", 'sprintboot', 'infra-deployment', params.branch)
+            jenkinsLibrary.sendToSlack(colorBlue, "SUCCESS", 'sprintboot', 'infra-deployment', params.branch)
         }
     }
 }
