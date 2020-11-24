@@ -32,7 +32,7 @@ params = [
     skip_notification: false
 ]
 
-node('jenkins-slave') {
+node('java-maven-slave') {
     step([$class: 'WsCleanup'])
     jenkinsLibrary = loadJenkinsCommonLibrary()
     jenkinsLibrary.defaultConfigs(params)
