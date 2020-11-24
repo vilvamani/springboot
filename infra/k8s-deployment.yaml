@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-ENVIRONMENT-BUILD_NUMBER
+  name: springboot-app
 spec:
   replicas: 2
   selector:
@@ -14,7 +14,7 @@ spec:
         version: "BUILD_NUMBER"
     spec:
       containers:
-        - name: springboot-ENVIRONMENT-BUILD_NUMBER
+        - name: springboot-app
           image: IMAGE
           imagePullPolicy: IfNotPresent
           ports:
