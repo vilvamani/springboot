@@ -39,6 +39,9 @@ node('java-maven-slave') {
     timestamps {
         try {
             jenkinsLibrary.mavenSpringBootBuild(params)
+        } catch (NoSuchMethodError err) {
+            currentBuild.result = 'FAILURE'
+            throw err
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
             throw err
