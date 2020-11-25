@@ -38,7 +38,7 @@ node('java-maven-slave') {
     jenkinsLibrary.defaultConfigs(params)
     timestamps {
         try {
-            jenkinsLibrary.mavenSpingBootBuild(params)
+            jenkinsLibrary.mavenSpringBootBuild(params)
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
             throw err
