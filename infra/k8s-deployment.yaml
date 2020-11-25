@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: springboot-app
+  labels:
+    app.kubernetes.io/name: book-microservice
+    app.kubernetes.io/component: microservice
 spec:
   replicas: 2
   selector:
@@ -11,7 +14,6 @@ spec:
     metadata:
       labels:
         app: springboot-app
-        version: "BUILD_NUMBER"
     spec:
       containers:
         - name: springboot-app
