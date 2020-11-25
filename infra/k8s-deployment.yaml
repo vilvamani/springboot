@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: book-microservice
+  name: springboot-microservice
   labels:
     app.kubernetes.io/name: book-microservice
     app.kubernetes.io/component: microservice
@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/component: microservice
     spec:
       containers:
-        - name: springboot-app
+        - name: springboot-microservice
           image: IMAGE
           imagePullPolicy: IfNotPresent
           ports:
