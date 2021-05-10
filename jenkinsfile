@@ -12,6 +12,9 @@ def getGitCredentials() {
 
 
 def slackNotifier(String buildResult) {
+	
+  currentBuild.displayName = "#" + (currentBuild.number + ' - ' + buildResult)
+	
   if ( buildResult == "SUCCESS" ) {
     slackSend color: "good", message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful"
   }
@@ -96,7 +99,7 @@ podTemplate(label: label, containers: [
               #!/busybox/sh
               cp newrelic/newrelic.jar ./newrelic.jar
               rm -rf newrelic newrelic-java.zip
-              /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=vilvamani007/test:${IMAGE_VERSION}
+              /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=vilvamani007/springboot:${IMAGE_VERSION}
             '''
             }
           }
@@ -104,7 +107,11 @@ podTemplate(label: label, containers: [
 
         stage("Kubernetes") {
           container('kubectl') {
-            sh "kubectl apply -f https://raw.githubusercontent.com/vilvamani/spring-boot-swagger2/master/nginx.yaml"
+            sh '''
+	      kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-deployment.yaml
+	      
+	      kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-service.yaml
+	    '''
           }
         }
       }
