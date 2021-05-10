@@ -16,16 +16,16 @@ def slackNotifier(String buildResult) {
   currentBuild.displayName = "#" + (currentBuild.number + ' - ' + buildResult)
 	
   if ( buildResult == "SUCCESS" ) {
-    slackSend color: "good", message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful"
+    slackSend color: "good", message: "Deployment of ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} : <${BUILD_URL}|Successfull>"
   }
   else if( buildResult == "FAILURE" ) { 
-    slackSend color: "danger", message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was failed"
+    slackSend color: "danger", message: "Deployment of ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} : <${BUILD_URL}|Failed>"
   }
   else if( buildResult == "UNSTABLE" ) { 
-    slackSend color: "warning", message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was unstable"
+    slackSend color: "warning", message: "Deployment of ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} : <${BUILD_URL}|Unstable"
   }
   else {
-    slackSend color: "danger", message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} its resulat was unclear"	
+    slackSend color: "danger", message: "Deployment of ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} : <${BUILD_URL}|Unclear"	
   }
 }
 
@@ -55,7 +55,7 @@ podTemplate(label: label, containers: [
         container('maven') {
           stage('Git Checkout') {
             getGitCredentials()
-            IMAGE_VERSION = "${GIT_COMMIT}-${BRANCH_NAME}-${BUILD_NUMBER}"
+            IMAGE_VERSION = "${GIT_COMMIT}"
           }
 
           stage("Read Author") {
@@ -85,9 +85,9 @@ podTemplate(label: label, containers: [
         container('sonarqube') {
           stage('SonarQube') {
             withSonarQubeEnv('SonarQube') {
-              sh """
+              sh '''
                 sonar-scanner -Dsonar.projectBaseDir=${WORKSPACE} -Dsonar.projectKey=springboot-api -Dsonar.login="${SONARQUBE_API_TOKEN}" -Dsonar.java.binaries=target/classes -Dsonar.sources=src/main/java/ -Dsonar.language=java
-              """
+              '''
             }
           }
         }
@@ -116,18 +116,21 @@ podTemplate(label: label, containers: [
             }
           }
         }
+
+        currentBuild.result = 'SUCCESS'
       }
     } 
     catch (FlowInterruptedException interruptEx) {
       echo "Job was cancelled"
+      currentBuild.result = 'FAILURE'
       throw interruptEx
     }
-    catch (failure) {
-      throw failure
+    catch (Exception err) {
+      currentBuild.result = 'FAILURE'
     }
     finally{
-	  /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
-      slackNotifier(currentBuild.currentResult)
+	  /* Use slackNotifier.groovy from shared library and provide current build result as parameter */
+      slackNotifier(currentBuild.result)
     }
   }
 }
