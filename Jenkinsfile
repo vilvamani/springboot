@@ -105,13 +105,15 @@ podTemplate(label: label, containers: [
           }
         }
 
-        stage("Kubernetes") {
-          container('kubectl') {
-            sh '''
-	      kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-deployment.yaml
-	      
-	      kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-service.yaml
-	    '''
+
+        if (env.BRANCH_NAME == 'master') {
+          stage("Kubernetes") {
+            container('kubectl') {
+              sh '''
+                kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-deployment.yaml
+                kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-service.yaml
+	          '''
+            }
           }
         }
       }
