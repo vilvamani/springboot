@@ -2,7 +2,7 @@
 import org.jenkinsci.plugins.workflow.steps.FlowInterruptedException
 
 def label = "slave-${UUID.randomUUID().toString()}"
-def IMAGE_VERSION
+def IMAGE_VERSION = ''
 
 def getGitCredentials() {
   def co = checkout(scm)
@@ -74,20 +74,20 @@ podTemplate(label: label, containers: [
 
           stage("Maven Build") {
             sh "mvn install -DskipTests"
-            sh '''
+            sh """
               echo Download newRelicc jar
               curl -O https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip
               jar -xvf newrelic-java.zip
-            '''
+            """
           }
         }
 
         container('sonarqube') {
           stage('SonarQube') {
             withSonarQubeEnv('SonarQube') {
-              sh '''
+              sh """
                 sonar-scanner -Dsonar.projectBaseDir=${WORKSPACE} -Dsonar.projectKey=springboot-api -Dsonar.login="${SONARQUBE_API_TOKEN}" -Dsonar.java.binaries=target/classes -Dsonar.sources=src/main/java/ -Dsonar.language=java
-              '''
+              """
             }
           }
         }
@@ -95,12 +95,12 @@ podTemplate(label: label, containers: [
         stage('Create Docker images') {
           container(name: 'kaniko', shell: '/busybox/sh') {
             withEnv(['PATH+EXTRA=/busybox:/kaniko']) {
-            sh '''
+            sh """
               #!/busybox/sh
               cp newrelic/newrelic.jar ./newrelic.jar
               rm -rf newrelic newrelic-java.zip
               /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=vilvamani007/springboot:${IMAGE_VERSION}
-            '''
+            """
             }
           }
         }
@@ -109,10 +109,10 @@ podTemplate(label: label, containers: [
         if (env.BRANCH_NAME == 'master') {
           stage("Kubernetes") {
             container('kubectl') {
-              sh '''
+              sh """
                 kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-deployment.yaml
                 kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-service.yaml
-	          '''
+	          """
             }
           }
         }
