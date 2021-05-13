@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: springboot-microservice
-          image: vilvamani007/springboot:a69bb73ef1321b69e07c54ecbd7f1e013ed00dd2
+          image: vilvamani007/springboot:0c3bf3c6e1cdfee4d5681f4433dd25af8d5c0070
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
