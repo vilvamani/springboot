@@ -107,7 +107,7 @@ podTemplate(label: label, containers: [
 
 
         if (env.BRANCH_NAME == 'master') {
-          stage("Kubernetes") {
+          stage("Deploy into K8S-Dev") {
             container('kubectl') {
               sh """
                 kubectl apply -f https://raw.githubusercontent.com/vilvamani/springboot/master/infra/k8s-deployment.yaml
