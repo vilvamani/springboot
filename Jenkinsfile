@@ -116,7 +116,7 @@ podTemplate(label: label, containers: [
             }
           }
 		
-          stage("Deploy into K8S-Dev") {
+          stage("Dev Regression Test") {
             echo "Regression test"
 	  }
         }
