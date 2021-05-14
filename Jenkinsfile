@@ -119,6 +119,18 @@ podTemplate(label: label, containers: [
           stage("Dev Regression Test") {
             echo "Regression test"
 	  }
+		
+          parallel([
+              QA: {
+                echo "QA Deployment"
+              },
+              UAT : {
+                echo "UAT Deployment"
+              },
+              PROD: {
+                echo "Prod Deployment"
+              }
+          ])
         }
 
         currentBuild.result = 'SUCCESS'
