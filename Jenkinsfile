@@ -115,6 +115,10 @@ podTemplate(label: label, containers: [
 	          """
             }
           }
+		
+          stage("Deploy into K8S-Dev") {
+            echo "Regression test"
+	  }
         }
 
         currentBuild.result = 'SUCCESS'
