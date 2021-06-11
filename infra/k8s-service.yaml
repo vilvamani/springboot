@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: springboot-svc
   labels:
-    app.kubernetes.io/name: springboot-microservice
+    app.kubernetes.io/name: springbootapp
     app.kubernetes.io/component: microservice
 spec:
   # In a production setup, we recommend accessing Grafana through an external Loadbalancer
@@ -16,5 +16,5 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app.kubernetes.io/name: springboot-microservice
+    app.kubernetes.io/name: springbootapp
     app.kubernetes.io/component: microservice
