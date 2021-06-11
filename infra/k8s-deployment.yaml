@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-microservice
+  name: springbootapp
   labels:
-    app.kubernetes.io/name: springboot-microservice
+    app.kubernetes.io/name: springbootapp
     app.kubernetes.io/component: microservice
 spec:
   replicas: 2
   selector:
     matchLabels:
-        app.kubernetes.io/name: springboot-microservice
+        app.kubernetes.io/name: springbootapp
         app.kubernetes.io/component: microservice
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: springboot-microservice
+        app.kubernetes.io/name: springbootapp
         app.kubernetes.io/component: microservice
     spec:
       containers:
-        - name: springboot-microservice
+        - name: springbootapp
           image: vilvamani007/springboot:0c3bf3c6e1cdfee4d5681f4433dd25af8d5c0070
           imagePullPolicy: IfNotPresent
           ports:
