@@ -17,6 +17,16 @@ public class BookController {
     public String home() {
         return "Hello World!";
     }
+    
+    @GetMapping("/perftest")
+    public String sqrt() {
+        double x = 0.0001;
+        
+        for (double i = 0; i <= 1000000; i++) {
+            x += Math.sqrt(x);
+        }
+        return "OK";
+    }
 
     @GetMapping("/books")
     public List<Book> getAllBooks() {
