@@ -5,6 +5,8 @@ import com.training.devops.jenkins.springboot.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.InetAddress;
+
 import java.util.List;
 
 @RestController
@@ -25,7 +27,15 @@ public class BookController {
         for (double i = 0; i <= 1000000; i++) {
             x += Math.sqrt(x);
         }
-        return "OK";
+
+        String ip = null;
+
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ip + "\n";
     }
 
     @GetMapping("/books")
